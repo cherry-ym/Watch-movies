@@ -4,7 +4,7 @@
         <div id="content">
             <div class="movie_menu">
                 <router-link tag="div" to="/movie/city" class="city_name">
-                    <span>大连</span><i class="iconfont icon-lower-triangle"></i>
+                    <span>{{ $store.state.city.nm }}</span><i class="iconfont icon-lower-triangle"></i>
                 </router-link>
                 <div class="hot_swtich">
                     <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
@@ -15,7 +15,8 @@
                 </router-link>
             </div>
             <!-- 电影列表 -->
-            <keep-alive>
+            <keep-alive>        
+                <!-- 缓存，保证切换页面不会再次请求数据 -->
                 <router-view></router-view>
             </keep-alive>
         </div>
@@ -25,12 +26,39 @@
 
 <script>
 import Header from '@/components/Header';
-import TabBar from '@/components/TabBar'
+import TabBar from '@/components/TabBar';
+import {messageBox} from '@/components/JS';
+
 export default {
     name : 'Movie',
     components : {
         Header,
-        TabBar
+        TabBar,
+    },
+    mounted(){
+
+        setTimeout(()=>{
+            this.axios.get('/api/getLocation').then((res)=>{
+                var msg = res.data.msg;
+                if(msg == 'ok'){
+                    var nm = res.data.data.nm;
+                    var id = res.data.data.id;
+                    if(this.$store.state.city.id == id){return;}    //如果当前城市和本来城市一样就不用弹窗
+                    messageBox({
+                        title : '定位',
+                        content : nm,
+                        cancel : '取消',
+                        ok : '切换定位',
+                        handleOk(){
+                            window.localStorage.setItem('nowNm',nm);
+                            window.localStorage.setItem('nowId',id);
+                            window.location.reload();
+                        }
+                    });
+                }
+            })
+        },3000);
+
     }
 }
 </script>

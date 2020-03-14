@@ -51,9 +51,10 @@ export default {
     watch : {
         message(newVal){
             var that = this;
+            var cityId = this.$store.state.city.id;
             this.cancelResquest();
-            this.axios.get('/api/searchList?cityId=10&kw=' + newVal, {
-                cancelToken: new this.axios.CancelToken(function(c) {
+            this.axios.get('/api/searchList?cityId='+ cityId +'&kw=' + newVal, {
+                cancelToken: new this.axios.CancelToken(function(c) {       //axios防抖
                 that.source = c;
                 })
             }).then((res)=>{
