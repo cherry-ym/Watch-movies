@@ -16,11 +16,12 @@
             </div>
             <!-- 电影列表 -->
             <keep-alive>        
-                <!-- 缓存，保证切换页面不会再次请求数据 -->
+                <!-- keep-alive缓存，保证切换页面不会再次请求数据 router-view为二级路由留空间-->
                 <router-view></router-view>
             </keep-alive>
         </div>
         <TabBar></TabBar>
+        <router-view name="detail"></router-view>
     </div>
 </template>
 

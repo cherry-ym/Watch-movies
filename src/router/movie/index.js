@@ -19,8 +19,31 @@ export default {
             component : () => import('@/components/Search')
         },
         {
+            path : 'detail/1/:movieId',
+            components : {
+                default : ()=> import('@/components/NowPlaying'),
+                detail : ()=> import('@/views/Movie/detail')
+            },
+            //通过props将$router与路由解耦
+            props : {
+                detail : true
+            }
+        },
+        {
+            path : 'detail/2/:movieId',
+            components : {
+                default : ()=> import('@/components/ComingSoon'),
+                detail : ()=> import('@/views/Movie/detail')
+            },
+            //通过props将$router与路由解耦
+            props : {
+                detail : true
+            }
+        },
+        {
             path : '/movie',
             redirect : '/movie/nowPlaying'
         },
+
     ]
 }
