@@ -28,17 +28,32 @@ export default {
         return{
             comingList: [],
             isLoading : true,
+            prevCityId : -1
         }
     },
     activated(){
-        this.axios.get('/data.json').then((res)=>{
-            // var msg = res.data.msg;
-            // if(msg == "ok"){
-            //     this.comingList = res.data.data.comingList; 
-            // }
+        // this.axios.get('/data.json').then((res)=>{
+        //     // var msg = res.data.msg;
+        //     // if(msg == "ok"){
+        //     //     this.comingList = res.data.data.comingList; 
+        //     // }
+        //     //console.log(res)
+        //     this.comingList = res.data.coming;
+        //     this.isLoading = false;
+        // })
+        var cityId = this.$store.state.city.id;
+        if(this.prevCityId == cityId){return;}     //没有切换城市就不用再切换页面时发起axios请求
+        this.isLoading = true;
+        this.axios.get('/api/movieComingList?cityId=' + cityId).then((res)=>{
+            var msg = res.data.msg;
+            if(msg == "ok"){
+                this.comingList = res.data.data.comingList;
+                this.isLoading = false; 
+                this.prevCityId = cityId;
+            }
             //console.log(res)
-            this.comingList = res.data.coming;
-            this.isLoading = false;
+            //this.comingList = res.data.coming;
+            //this.isLoading = false;
         })
     },
     methods : {

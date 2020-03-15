@@ -34,7 +34,7 @@ export default {
             prevCityId : -1            //上一次城市的Id
         }
     },
-    activated(){          //mounted生命周期有keep-alive存在时就把不会再次触发了
+    activated(){          //mounted生命周期有keep-alive存在时就不会再次触发了
 
         var cityId = this.$store.state.city.id;
         if(this.prevCityId == cityId){return;}     //没有切换城市就不用再切换页面时发起axios请求

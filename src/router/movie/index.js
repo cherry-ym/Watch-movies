@@ -21,7 +21,7 @@ export default {
         {
             path : 'detail/1/:movieId',
             components : {
-                default : ()=> import('@/components/NowPlaying'),
+                default : ()=> import('@/components/NowPlaying'),   //默认指向router-view没有名字的组件
                 detail : ()=> import('@/views/Movie/detail')
             },
             //通过props将$router与路由解耦

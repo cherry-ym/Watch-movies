@@ -53,7 +53,7 @@ export default {
                         handleOk(){
                             window.localStorage.setItem('nowNm',nm);
                             window.localStorage.setItem('nowId',id);
-                            window.location.reload();
+                            window.location.reload();       //根据location重新加载页面
                         }
                     });
                 }

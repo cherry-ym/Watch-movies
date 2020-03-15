@@ -15,7 +15,13 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <style>
+      #app{display: flex; height: 100%;}
+      #app div{margin: auto; font-size: 22px;}
+    </style>
+    <div id="app">
+      <div>好看电影即将来袭</div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>
